@@ -1,10 +1,10 @@
-name: build-newb-lite
+name: build-newb-iteration
 
-# Build Newb X Legacy Lite By Zeyy dari source (hasil: .mcpack untuk MB Loader).
-# Actions -> build-newb-lite -> Run workflow, download artifact .mcpack,
+# Build Newb Lite X Iteration By zeyy dari source (hasil: .mcpack untuk MB Loader).
+# Actions -> build-newb-iteration -> Run workflow, download artifact .mcpack,
 # tes di game. Nilai kalibrasi glow matahari bisa diubah lewat input.
 # Folder proyek (yang berisi build.sh + requirements.txt) dicari otomatis,
-# jadi aman walau repo berisi subfolder (mis. newb-lite-zeyy/).
+# jadi aman walau repo berisi subfolder (mis. newb-iteration-zeyy/).
 # Kalau repo hanya berisi file zip source, zip diekstrak otomatis.
 on:
   workflow_dispatch:
@@ -112,10 +112,10 @@ jobs:
       shell: bash
       working-directory: ${{ env.PROJECT_DIR }}
       run: |
-        python -c "import shutil; shutil.make_archive('Newb_Lite_By_Zeyy-${{ inputs.platform }}', 'zip', 'build/pack-${{ inputs.platform }}')"
-        mv Newb_Lite_By_Zeyy-${{ inputs.platform }}.zip Newb_Lite_By_Zeyy-${{ inputs.platform }}.mcpack
+        python -c "import shutil; shutil.make_archive('Newb_Lite_X_Iteration_By_Zeyy-${{ inputs.platform }}', 'zip', 'build/pack-${{ inputs.platform }}')"
+        mv Newb_Lite_X_Iteration_By_Zeyy-${{ inputs.platform }}.zip Newb_Lite_X_Iteration_By_Zeyy-${{ inputs.platform }}.mcpack
 
     - uses: actions/upload-artifact@v4
       with:
-        name: Newb_Lite_By_Zeyy-${{ inputs.platform }}
-        path: ${{ env.PROJECT_DIR }}/Newb_Lite_By_Zeyy-${{ inputs.platform }}.mcpack
+        name: Newb_Lite_X_Iteration_By_Zeyy-${{ inputs.platform }}
+        path: ${{ env.PROJECT_DIR }}/Newb_Lite_X_Iteration_By_Zeyy-${{ inputs.platform }}.mcpack
