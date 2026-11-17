@@ -2,7 +2,7 @@ name: build-newb-iteration
 
 # Build Newb Lite X Iteration By zeyy dari source (hasil: .mcpack untuk MB Loader).
 # Actions -> build-newb-iteration -> Run workflow, download artifact .mcpack,
-# tes di game. Jalur matahari dan shimmer ore bisa diubah lewat input.
+# tes di game. Nilai kalibrasi glow matahari bisa diubah lewat input.
 # Folder proyek (yang berisi build.sh + requirements.txt) dicari otomatis,
 # jadi aman walau repo berisi subfolder (mis. newb-iteration-zeyy/).
 # Kalau repo hanya berisi file zip source, zip diekstrak otomatis.
@@ -14,6 +14,9 @@ on:
         default: '0.0'
       sun_tilt:
         description: 'NL_SUN_PATH_TILT (derajat, 0 = vanilla)'
+        default: '0.0'
+      glow_offset:
+        description: 'NL_SUN_GLOW_YAW_OFFSET (derajat, +/- membalik arah geser)'
         default: '0.0'
       shimmer:
         description: 'NL_GLOW_SHIMMER (0.1 halus ~ 1.0 kuat)'
@@ -82,9 +85,10 @@ jobs:
         f=src/newb/config.h
         sed -i -E "s/^(#define NL_SUN_PATH_YAW)[[:space:]]+[^ ]+/\1 ${{ inputs.sun_yaw }}/" $f
         sed -i -E "s/^(#define NL_SUN_PATH_TILT)[[:space:]]+[^ ]+/\1 ${{ inputs.sun_tilt }}/" $f
+        sed -i -E "s/^(#define NL_SUN_GLOW_YAW_OFFSET)[[:space:]]+[^ ]+/\1 ${{ inputs.glow_offset }}/" $f
         sed -i -E "s/^(#define NL_GLOW_SHIMMER)[[:space:]]+[^ ]+/\1 ${{ inputs.shimmer }}/" $f
         sed -i -E "s/^(#define NL_GLOW_SHIMMER_SPEED)[[:space:]]+[^ ]+/\1 ${{ inputs.shimmer_speed }}/" $f
-        grep -nE "^#define NL_(SUN_PATH|GLOW_SHIMMER)" $f
+        grep -nE "^#define NL_(SUN_PATH|SUN_GLOW|GLOW_SHIMMER)" $f
 
     - name: Install dependencies
       working-directory: ${{ env.PROJECT_DIR }}
